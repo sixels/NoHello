@@ -2,8 +2,6 @@
 #include<stdint.h>
 #include<inttypes.h>
 
-
-void print_bin(uint64_t);
 #define uint unsigned int
 
 static char message[] = "Hello World";
@@ -53,11 +51,9 @@ int main(void) {
   // encode the alphabet
   unsigned long encoded_alphabet = 0;
   // the alphabet is 8 characters long
-  // each character is 7 bits long
+  // each character is 7 bits long but we will use 8 bits to represent them
   for (uint i = 0; i < sizeof(alphabet)-1; ++i) {
     encoded_alphabet |= (uint64_t)alphabet[i] << 8*i;
-    /* print_bin(encoded_alphabet); */
-    /* puts(""); */
   }
 
   printf("alphabet: \"%s\"\n", alphabet);
@@ -70,14 +66,4 @@ int main(void) {
   printf("encoded_alphabet: 0x%"PRIX64"\n", encoded_alphabet);
 
   return 0;
-}
-
-#include <limits.h>
-
-void print_bin(uint64_t integer)
-{
-    int i = CHAR_BIT * sizeof integer; /* however many bits are in an integer */
-    while(i--) {
-        putchar('0' + ((integer >> i) & 1));
-    }
 }
